@@ -1,4 +1,5 @@
 export LC_CTYPE="en_US.UTF-8"
+export EDITOR=nvim
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 PS1="%B%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$reset_color%}%b "
@@ -71,6 +72,34 @@ bindkey '^[[P' delete-char
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+
+# Theos path
+export THEOS=/opt/theos
+export THEOS_MAKE_PATH=/opt/theos/makefiles
+
+# Go path
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+
+# Rust path
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Nim path
+export PATH="$HOME/.nimble/bin:$PATH"
+
+# add Android SDK platform tools to path
+if [ -d "$HOME/platform-tools" ] ; then
+    PATH="$HOME/platform-tools:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+export LUTRIS_ENABLE_PROTON=1
+export USE_CCACHE=1
+export CCACHE_EXEC=/usr/bin/ccache
+
 
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
