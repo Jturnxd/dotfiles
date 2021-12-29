@@ -8,24 +8,26 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-Plug 'tpope/vim-surround'
-Plug 'preservim/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'jreybert/vimagit'
-Plug 'lukesmithxyz/vimling'
-Plug 'vimwiki/vimwiki'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-commentary'
-Plug 'ap/vim-css-color'
-Plug 'pangloss/vim-javascript'
-Plug 'sheerun/vim-polyglot'
-Plug 'andweeb/presence.nvim'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'EdenEast/nightfox.nvim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'github/copilot.vim'
+Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'alaviss/nim.nvim'
+Plug 'andweeb/presence.nvim'
+Plug 'ap/vim-css-color'
+Plug 'bling/vim-airline'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'github/copilot.vim'
+Plug 'jreybert/vimagit'
+Plug 'junegunn/goyo.vim'
+Plug 'lukesmithxyz/vimling'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'pangloss/vim-javascript'
+Plug 'preservim/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vimwiki/vimwiki'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 set title
@@ -47,7 +49,7 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
-	colorscheme torte
+	colorscheme nightfox
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
@@ -69,13 +71,6 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
     else
         let NERDTreeBookmarksFile = '~/.vim' . '/NERDTreeBookmarks'
     endif
-" JS folding
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
-augroup END
-set foldmethod=indent       " automatically fold by indent level
-set nofoldenable            " ... but have folds open by default
 
 " vimling:
 	nm <leader><leader>d :call ToggleDeadKeys()<CR>
@@ -179,3 +174,21 @@ inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
+
+" treesitter highlighting
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
