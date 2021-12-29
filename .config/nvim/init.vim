@@ -8,7 +8,7 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-Plug 'EdenEast/nightfox.nvim'
+Plug 'morhetz/gruvbox'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'alaviss/nim.nvim'
@@ -31,7 +31,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 set title
-set bg=light
+set bg=dark
 set go=a
 set mouse=a
 set nohlsearch
@@ -49,7 +49,7 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
-	colorscheme nightfox
+	colorscheme gruvbox
 " Enable autocompletion:
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
